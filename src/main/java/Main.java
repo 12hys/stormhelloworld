@@ -3,7 +3,7 @@ import org.apache.storm.LocalCluster;
 import org.apache.storm.utils.Utils;
 import topologies.EmailCounterTopology;
 
-public class StormHelloWorld {
+public class Main {
     private static final int TEN_MINUTES = 600000;
 
     public static void main(String[] args) {
