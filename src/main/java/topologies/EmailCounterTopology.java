@@ -1,7 +1,7 @@
 package topologies;
 
-import bolts.EmailCounter;
-import bolts.EmailExtractor;
+import java.bolts.EmailCounter;
+import java.bolts.EmailExtractor;
 import org.apache.storm.generated.StormTopology;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.tuple.Fields;
