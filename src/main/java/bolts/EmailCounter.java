@@ -1,25 +1,29 @@
 package bolts;
 
+import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
-import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.OutputFieldsDeclarer;
-import org.apache.storm.topology.base.BaseBasicBolt;
+import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Tuple;
+import org.apache.storm.tuple.Values;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class EmailCounter extends BaseBasicBolt {
+public class EmailCounter extends BaseRichBolt {
     private Map<String, Integer> counts;
+    private OutputCollector outputCollector;
 
-    public void prepare(Map stormConf, TopologyContext context) {
+    public void prepare(Map stormConf, TopologyContext context, OutputCollector outputCollector) {
         counts = new HashMap<String, Integer>();
+        this.outputCollector = outputCollector;
     }
 
-    public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
+    public void execute(Tuple tuple) {
         String email = tuple.getStringByField("email");
         counts.put(email, countFor(email) + 1);
-        printCounts();
+        outputCollector.ack(tuple);
+        outputCollector.emit(new Values(counts));
     }
 
     private Integer countFor(String email) {
@@ -27,13 +31,10 @@ public class EmailCounter extends BaseBasicBolt {
         return count == null ? 0 : count;
     }
 
-    private void printCounts() {
-        for (String email : counts.keySet()) {
-            System.out.println(String.format("%s has count of %s", email, counts.get(email)));
-        }
+    public Map<String, Integer> getCounts() {
+        return counts;
     }
 
-    public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        // Don't declare anything
+    public void declareOutputFields(OutputFieldsDeclarer declarer) {
     }
 }
