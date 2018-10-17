@@ -11,11 +11,15 @@ public class Main {
         Config config = new Config();
         config.setDebug(true);
 
-        LocalCluster localCluster = new LocalCluster();
-        localCluster.submitTopology("github-topology", config, EmailCounterTopology.build());
+        try {
+            LocalCluster localCluster = new LocalCluster();
+            localCluster.submitTopology("github-topology", config, EmailCounterTopology.build());
 
-        Utils.sleep(TEN_MINUTES);
-        localCluster.killTopology("github-topology");
-        localCluster.shutdown();
+            Utils.sleep(TEN_MINUTES);
+            localCluster.killTopology("github-topology");
+            localCluster.shutdown();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
