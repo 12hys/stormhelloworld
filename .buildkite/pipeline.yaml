@@ -1,0 +1,3 @@
+steps:
+  - label: ":llama: Tests"
+    command: scripts/test
