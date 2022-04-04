@@ -6,7 +6,6 @@ import org.apache.storm.task.TopologyContext;
 import org.apache.storm.tuple.Tuple;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.HashMap;
 import java.util.Map;
