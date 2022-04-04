@@ -17,7 +17,7 @@ public class Main {
             LocalCluster localCluster = new LocalCluster();
             localCluster.submitTopology("github-topology", config, EmailCounterTopology.build());
 
-            Utils.sleep(sleepTime.toSeconds());
+            Utils.sleep(sleepTime.toMillis());
             localCluster.killTopology("github-topology");
             localCluster.shutdown();
         } catch (Exception e) {
