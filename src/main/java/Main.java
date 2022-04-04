@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // test
         Config config = new Config();
         config.setDebug(true);
 
